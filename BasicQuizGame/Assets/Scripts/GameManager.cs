@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,8 +20,15 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Text trueText,falseText;
 
+    [SerializeField]
+    private GameObject trueButton, falseButton;
+    
+    int trueCount, falseCount;
+
     void Start()
     {
+        trueCount = 0;
+        falseCount = 0;
         if(notAnsweredQuestions == null || notAnsweredQuestions.Count == 0)
         {
             notAnsweredQuestions = questions.ToList<Question>();
@@ -31,6 +39,8 @@ public class GameManager : MonoBehaviour
 
     void selectRandomQuestion()
     {
+        falseButton.GetComponent<RectTransform>().DOLocalMoveX(222f,.2f);
+        trueButton.GetComponent<RectTransform>().DOLocalMoveX(-228f,.2f);
         int randomQuestionIndex = Random.Range(0, notAnsweredQuestions.Count);
         currentQuestion = notAnsweredQuestions[randomQuestionIndex];
         questionText.text = currentQuestion.question;
@@ -51,13 +61,14 @@ public class GameManager : MonoBehaviour
     {
         if(currentQuestion.answer)
         {
-            Debug.Log("Doğru butona bastınız");
+            trueCount++;
         }
         else
         {
-            Debug.Log("Yanlış cevapladınız");
+            falseCount++;
         }
 
+        falseButton.GetComponent<RectTransform>().DOLocalMoveX(1000f, .2f);   
         StartCoroutine(wait());
     }
 
@@ -66,13 +77,13 @@ public class GameManager : MonoBehaviour
     {
         if(!currentQuestion.answer)
         {
-            Debug.Log("Doğru butona bastınız");
+            trueCount++;
         }
         else
         {
-            Debug.Log("Yanlış cevapladınız");
+            falseCount++;
         }
-
+        trueButton.GetComponent<RectTransform>().DOLocalMoveX(-1000f, .2f);   
         StartCoroutine(wait());
     }
 
@@ -80,6 +91,13 @@ public class GameManager : MonoBehaviour
     {
         notAnsweredQuestions.Remove(currentQuestion);
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if(notAnsweredQuestions.Count <= 0)
+        {
+            //openResultPanel();
+        }
+        else
+        {
+            selectRandomQuestion();
+        }
     }
 }
