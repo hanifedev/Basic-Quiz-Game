@@ -22,13 +22,21 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private GameObject trueButton, falseButton;
+
+    [SerializeField]
+    private GameObject resultPanel;
     
     int trueCount, falseCount;
+
+    int totalPoint;
+
+    ResultManager resultManager;
 
     void Start()
     {
         trueCount = 0;
         falseCount = 0;
+        totalPoint = 0;
         if(notAnsweredQuestions == null || notAnsweredQuestions.Count == 0)
         {
             notAnsweredQuestions = questions.ToList<Question>();
@@ -62,6 +70,7 @@ public class GameManager : MonoBehaviour
         if(currentQuestion.answer)
         {
             trueCount++;
+            totalPoint += 100;
         }
         else
         {
@@ -78,6 +87,7 @@ public class GameManager : MonoBehaviour
         if(!currentQuestion.answer)
         {
             trueCount++;
+            totalPoint += 100;           
         }
         else
         {
@@ -93,7 +103,9 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         if(notAnsweredQuestions.Count <= 0)
         {
-            //openResultPanel();
+            resultPanel.SetActive(true);
+            resultManager = Object.FindObjectOfType<ResultManager>();
+            resultManager.printResults(trueCount,falseCount,totalPoint);
         }
         else
         {

@@ -1631,7 +1631,7 @@ GameObject:
   - component: {fileID: 1085725652}
   - component: {fileID: 1085725651}
   m_Layer: 5
-  m_Name: Text
+  m_Name: ScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2265,6 +2265,7 @@ MonoBehaviour:
   falseText: {fileID: 1271601184}
   trueButton: {fileID: 1099069821}
   falseButton: {fileID: 887915839}
+  resultPanel: {fileID: 1702270885}
 --- !u!1 &1575583324
 GameObject:
   m_ObjectHideFlags: 0
@@ -2677,13 +2678,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1702270886}
+  - component: {fileID: 1702270887}
   m_Layer: 5
   m_Name: ResultPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1702270886
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2713,6 +2715,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1280, y: 720}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1702270887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702270885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36a2dcae54d235d4f93af7744ace1e25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trueText: {fileID: 1739782395}
+  falseText: {fileID: 87582929}
+  scoreText: {fileID: 0}
+  firstStar: {fileID: 53297203}
+  secondStar: {fileID: 481148174}
+  thirdStar: {fileID: 1243321556}
 --- !u!1 &1739782393
 GameObject:
   m_ObjectHideFlags: 0
